@@ -1,0 +1,18 @@
+<md-dialog aria-label="Mango (Fruit)">
+    <md-toolbar layout="row">
+        <div class="md-toolbar-tools">
+            <md-button ng-click="toggleSidenav('left')" hide-gt-sm class="md-icon-button">
+                <md-icon aria-label="Menu" md-svg-icon="https://s3-us-west-2.amazonaws.com/s.cdpn.io/68133/menu.svg"></md-icon>
+            </md-button>
+            <h1>PulseWise</h1>
+            <span flex></span>
+            <md-button class="md-icon-button" ng-click="cancel()">
+                <md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+
+    <md-content flex="33">
+        <canvas id="myChart" width="400" height="400"></canvas>
+    </md-content>
+</md-dialog>

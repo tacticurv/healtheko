@@ -343,6 +343,84 @@
 		});
 	});
 
-	dhp.controller('dashboardController', ['$scope', function($scope){
+	dhp.controller('dashboardController', ['$scope', '$mdDialog', function($scope, $mdDialog){
+		$scope.showAdvanced = function(ev) {
+			$mdDialog.show({
+				controller: DialogController,
+				templateUrl: 'pulsedialog.html',
+				parent: angular.element(document.body),
+				targetEvent: ev,
+				clickOutsideToClose:true
+			})
+				.then(function(answer) {
+					$scope.status = 'You said the information was "' + answer + '".';
+				}, function() {
+					$scope.status = 'You cancelled the dialog.';
+				});
+		};
 
+		$scope.showSleep = function(ev) {
+			$mdDialog.show({
+				controller: DialogController,
+				templateUrl: 'sleepdialog.html',
+				parent: angular.element(document.body),
+				targetEvent: ev,
+				clickOutsideToClose:true
+			})
+				.then(function(answer) {
+					$scope.status = 'You said the information was "' + answer + '".';
+				}, function() {
+					$scope.status = 'You cancelled the dialog.';
+				});
+		};
+
+		$scope.showGlucose = function(ev) {
+			$mdDialog.show({
+				controller: DialogController,
+				templateUrl: 'glucosedialog.html',
+				parent: angular.element(document.body),
+				targetEvent: ev,
+				clickOutsideToClose:true
+			})
+				.then(function(answer) {
+					$scope.status = 'You said the information was "' + answer + '".';
+				}, function() {
+					$scope.status = 'You cancelled the dialog.';
+				});
+		};
+
+		$scope.showSteps = function(ev) {
+			$mdDialog.show({
+				controller: DialogController,
+				templateUrl: 'steps.html',
+				parent: angular.element(document.body),
+				targetEvent: ev,
+				clickOutsideToClose:true
+			})
+				.then(function(answer) {
+					$scope.status = 'You said the information was "' + answer + '".';
+				}, function() {
+					$scope.status = 'You cancelled the dialog.';
+				});
+		};
+
+		$scope.people = [
+			{ name: 'Sam S Smith', img: 'img/100-0.jpeg', newMessage: true, score:'82' },
+			{ name: 'Nancy Anderson', img: 'img/100-1.jpeg', newMessage: false, score:'76' },
+			{ name: 'Charlie Miller', img: 'img/100-2.jpeg', newMessage: false, score:'52' }
+		];
 	}]);
+
+	function DialogController($scope, $mdDialog) {
+		$scope.hide = function() {
+			$mdDialog.hide();
+		};
+		$scope.cancel = function() {
+			$mdDialog.cancel();
+		};
+		$scope.answer = function(answer) {
+			$mdDialog.hide(answer);
+		};
+	}
+
+

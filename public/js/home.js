@@ -13,26 +13,17 @@
 
 setTimeout(function(){
     var data = [{
-        value: 30,
-        color: "#F7464A"
+        value: 80,
+        color: "#ff4081"
     }, {
-        value: 50,
-        color: "#E2EAE9"
-    }, {
-        value: 100,
-        color: "#D4CCC5"
-    }, {
-        value: 40,
-        color: "#949FB1"
-    }, {
-        value: 120,
-        color: "#4D5360"
+        value: 20,
+        color: "#F2F2F2"
     }
-
     ]
 
     var options = {
-        animation: false
+        animation: false,
+        segmentStrokeWidth : 20,
     };
 
 //Get the context of the canvas element we want to select

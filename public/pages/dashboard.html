@@ -1,21 +1,28 @@
-<md-content class="md-padding">
+<md-content flex="33" layout-padding layout-border layout-margin>
     <md-tabs md-dynamic-height md-border-bottom>
-        <md-tab label="one">
+        <md-tab label="Index">
             <md-content class="md-padding">
-                <h1 class="md-display-2">Tab One</h1>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla venenatis ante augue. Phasellus volutpat neque ac dui mattis vulputate. Etiam consequat aliquam cursus. In sodales pretium ultrices. Maecenas lectus est, sollicitudin consectetur felis nec, feugiat ultricies mi.</p>
+                <h1 class="md-display-2">HealthWise Index</h1>
+                <p> Your wellness score for a long and healthy life</p>
+                <h1>82</h1>
             </md-content>
         </md-tab>
-        <md-tab label="two">
+        <md-tab label="Leaderboard">
             <md-content class="md-padding">
                 <h1 class="md-display-2">Tab Two</h1>
-                <p>Integer turpis erat, porttitor vitae mi faucibus, laoreet interdum tellus. Curabitur posuere molestie dictum. Morbi eget congue risus, quis rhoncus quam. Suspendisse vitae hendrerit erat, at posuere mi. Cras eu fermentum nunc. Sed id ante eu orci commodo volutpat non ac est. Praesent ligula diam, congue eu enim scelerisque, finibus commodo lectus.</p>
+                <md-list-item ng-repeat="person in people" ng-click="goToPerson(person.name, $event)">
+                    <img alt="{{ person.name }}" ng-src="{{ person.img }}" class="md-avatar" />
+                    <p>{{ person.name }}</p>
+                    <p>{{person.score}}</p>
+                    <md-icon md-svg-icon="communication:messenger" ng-click="doSecondaryAction($event)" aria-label="Open Chat" class="md-secondary md-hue-3" ng-class="{'md-primary': person.newMessage}"></md-icon>
+                    <i class="material-icons">grade</i>
+                </md-list-item>
             </md-content>
         </md-tab>
-        <md-tab label="three">
+        <md-tab label="Savings">
             <md-content class="md-padding">
-                <h1 class="md-display-2">Tab Three</h1>
-                <p>Integer turpis erat, porttitor vitae mi faucibus, laoreet interdum tellus. Curabitur posuere molestie dictum. Morbi eget congue risus, quis rhoncus quam. Suspendisse vitae hendrerit erat, at posuere mi. Cras eu fermentum nunc. Sed id ante eu orci commodo volutpat non ac est. Praesent ligula diam, congue eu enim scelerisque, finibus commodo lectus.</p>
+                <h1 class="md-display-2">Your Savings of Health Spend</h1>
+                <h1>$18200</h1>
             </md-content>
         </md-tab>
     </md-tabs>
@@ -28,32 +35,43 @@
 <md-content flex="33">
     <md-list>
         <md-list-item>
-            <p>Sleep</p>
-            <i class="material-icons">arrow_forward</i>
+            <md-button class="md-primary" layout="row" ng-click="showAdvanced($event)">
+                <img src="img/pulse.png" class="half"> &nbsp;&nbsp;&nbsp;&nbsp; Pulse
+            </md-button>
         </md-list-item>
-    </md-list>
-    <md-list>
         <md-list-item>
-            <p>Metric 1</p>
-            <i class="material-icons">arrow_forward</i>
+            <md-button class="md-primary" layout="row">
+                <img src="img/bp.png" class="half"> &nbsp;&nbsp;&nbsp;&nbsp; Blood Pressure
+            </md-button>
         </md-list-item>
-    </md-list>
-    <md-list>
         <md-list-item>
-            <p>Metric 1</p>
-            <i class="material-icons">arrow_forward</i>
+            <md-button class="md-primary" layout="row" ng-click="showGlucose($event)">
+                <img src="img/sugar.png" class="half"> &nbsp;&nbsp;&nbsp;&nbsp; Blood Sugar
+            </md-button>
         </md-list-item>
-    </md-list>
-    <md-list>
         <md-list-item>
-            <p>Metric 1</p>
-            <i class="material-icons">arrow_forward</i>
+            <md-button class="md-primary" layout="row">
+                <img src="img/bmi.png" class="half"> &nbsp;&nbsp;&nbsp;&nbsp; BMI
+            </md-button>
         </md-list-item>
-    </md-list>
-    <md-list>
         <md-list-item>
-            <p>Metric 1</p>
-            <i class="material-icons">arrow_forward</i>
+            <md-button class="md-primary" layout="row" ng-click="showSleep($event)">
+                <img src="img/sleep.png" class="half"> &nbsp;&nbsp;&nbsp;&nbsp; Sleeping Hours
+            </md-button>
         </md-list-item>
+        <md-list-item>
+            <md-button class="md-primary" layout="row" ng-click="showSteps($event)">
+                <img src="img/steps.png" class="half"> &nbsp;&nbsp;&nbsp;&nbsp; Steps Walked
+            </md-button>
+        </md-list-item>
+        <md-list-item>
+            <md-button class="md-primary" layout="row">
+                <img src="img/air.png" class="half"> &nbsp;&nbsp;&nbsp;&nbsp; Air You Breathe
+            </md-button>
+        </md-list-item>
+
+
+
+
     </md-list>
 </md-content>
