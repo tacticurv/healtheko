@@ -6,10 +6,10 @@
 * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 * copies of the Software, and to permit persons to whom the Software is
 * furnished to do so, subject to the following conditions:
-* 
+*
  * The above copyright notice and this permission notice shall be included in
 * all copies or substantial portions of the Software.
-* 
+*
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -17,14 +17,14 @@
 * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 * THE SOFTWARE.
-* 
+*
 * Philips HTML5 Angular Application
-* 	
-* The DHPService contains the requisite functions for retrieving data from the FHIR server. 
-*/	
-	
+*
+* The DHPService contains the requisite functions for retrieving data from the FHIR server.
+*/
+
 	dhp.service('DHPService', function($http, $rootScope) {
-		
+
 		var accessToken;
 		var patient_id;
 		var patientData;
@@ -34,7 +34,7 @@
 		var observationsNextHref;
 		var observationsPrevHref;
 		var observationsGlucose;
-		
+
 		/* The login function authenticates a user given a username and password and after a token has been retrieved. */
 		var login = function(userName,password,accessToken) {
 			console.log("3");
@@ -53,9 +53,9 @@
 					$rootScope.$broadcast("Failed login");
 				});
 			};
-		
-		/* The logout function logs a user out. */		
-		this.logout = function() { 
+
+		/* The logout function logs a user out. */
+		this.logout = function() {
 			$http({
 				url: BASE_URL_LOGOUT,
 				method: "DELETE",
@@ -66,7 +66,7 @@
 					console.log(data);
 				});
 			};
-			
+
 		/* The patient function retrieves individual patient demographic data. */
 		this.patient = function() {
 			console.log("5");
@@ -82,9 +82,9 @@
 					console.log(data);
 				});
 			};
-			
+
 		/* The refreshPatient function retrieves individual patient demographic data. */
-		this.refreshPatient = function() { 
+		this.refreshPatient = function() {
 			$http({
 				url: BASE_URL_PATIENT + patient_id,
 				method: "GET",
@@ -97,9 +97,9 @@
 					console.log(data);
 				});
 			};
-			
-		/* The organization function retrieves the organization of the user. */			
-		this.organization = function(organization_id) { 
+
+		/* The organization function retrieves the organization of the user. */
+		this.organization = function(organization_id) {
 			$http({
 				url: BASE_URL_ORGANIZATION + organization_id,
 				method: "GET",
@@ -113,7 +113,7 @@
 				});
 			};
 
-		/* The observations function retrieves observations given a patient. */		
+		/* The observations function retrieves observations given a patient. */
 		this.observations = function() {
 			$http({
 				url: BASE_URL_OBSERVATION + '?subject:_id=' + patient_id,
@@ -128,7 +128,7 @@
 				});
 			};
 
-		/* This the observations paging function for next. */			
+		/* This the observations paging function for next. */
 		this.observationsNext = function() {
 			$http({
 				url: observationsNextHref,
@@ -143,7 +143,7 @@
 				});
 			};
 
-		/* This the observations paging function for previous. */			
+		/* This the observations paging function for previous. */
 		this.observationsPrevious = function() {
 			$http({
 				url: observationsPrevHref,
@@ -158,7 +158,7 @@
 				});
 			};
 
-		/* This the observations function for retrieving glucose observations for the graph. */			
+		/* This the observations function for retrieving glucose observations for the graph. */
 		this.observationsGlucose = function() {
 			$http({
 				url: BASE_URL_OBSERVATION + '?subject:_id=' + patient_id + '&name=' + GLUCOSE_LOINC + '&_sort:asc=date&_count=50',
@@ -174,7 +174,7 @@
 			};
 
 		/* This is the first function called to retrieve an application token.  Once a token is retrieved then it
-		   makes a call to authenticate the user via the login function.										*/			
+		   makes a call to authenticate the user via the login function.										*/
 		this.token = function(username, password) {
 			console.log("2");
 			var authenticateString = 'Basic ' + Base64.encode(CLIENT_ID + ':' + CLIENT_SECRET);
@@ -188,13 +188,41 @@
 				}).error(function (data, status, headers, config) {
 					console.log(data);
 					$rootScope.$broadcast("Failed login");
-				});			
+				});
 			};
 
+			this.dataRetrieval = function(observation_code)
+			  {
+			  var final = [];
+			  var url_base = BASE_URL_OBSERVATION + '?subject:_id=' + patient_id + '&name=' + observation_code + '&_sort:asc=date&_count=205'
+			  $http
+			    ({
+			      url: url_base,
+			      method: "GET",
+			      headers: {'Authorization':'Bearer ' + accessToken,'Accept':'application/json'}
+			      }).success(function (data, status, headers, config) {
+			      var total_count = data["totalResults"];
+			      }
+			  for(count = 0, inti = 0; inti < total_count; inti=inti+205)
+			    {
+			        $http({
+			        url: url_base,
+			        method: "GET",
+			        headers: {'Authorization':'Bearer ' + accessToken,'Accept':'application/json'}
+			              }).success(function (data, status, headers, config) {
+			        for(co=0, co<205, co++)
+			              {
+			              final[count] = data[co]};
+			              count++;
+
+			              }
+			    }
+				console.log(final[0]);
+			  };
 		/* Below are helper functions for the controllers to retrieve necessary data. */
-		
+
 		this.getAccessToken = function () {
-			return accessToken; 
+			return accessToken;
 		};
 		this.getPatientId = function () {
 			return patient_id;
@@ -219,5 +247,5 @@
 		}
 		this.getGlucoseObservationsData = function () {
 			return observationsGlucose;
-		}		
+		}
 	});
