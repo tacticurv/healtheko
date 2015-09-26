@@ -43,7 +43,7 @@ setTimeout(function(){
 
     myNewChart = new Chart(ct).Doughnut(data, options);
 
-}, 500);
+}, 1000);
 
 
 

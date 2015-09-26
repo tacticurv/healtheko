@@ -191,34 +191,30 @@
 				});
 			};
 
-			this.dataRetrieval = function(observation_code)
-			  {
-			  var final = [];
-			  var url_base = BASE_URL_OBSERVATION + '?subject:_id=' + patient_id + '&name=' + observation_code + '&_sort:asc=date&_count=205'
-			  $http
-			    ({
-			      url: url_base,
-			      method: "GET",
-			      headers: {'Authorization':'Bearer ' + accessToken,'Accept':'application/json'}
-			      }).success(function (data, status, headers, config) {
-			      var total_count = data["totalResults"];
-			      }
-			  for(count = 0, inti = 0; inti < total_count; inti=inti+205)
-			    {
-			        $http({
-			        url: url_base,
-			        method: "GET",
-			        headers: {'Authorization':'Bearer ' + accessToken,'Accept':'application/json'}
-			              }).success(function (data, status, headers, config) {
-			        for(co=0, co<205, co++)
-			              {
-			              final[count] = data[co]};
-			              count++;
-
-			              }
-			    }
-				console.log(final[0]);
-			  };
+		this.dataRetrieval = function(observation_code) {
+			var final = [];
+			var url_base = BASE_URL_OBSERVATION + '?subject:_id=' + patient_id + '&name=' + observation_code + '&_sort:asc=date&_count=205'
+			$http
+			({
+				url: url_base,
+				method: "GET",
+				headers: {'Authorization': 'Bearer ' + accessToken, 'Accept': 'application/json'}
+			}).success(function (data, status, headers, config) {
+				var total_count = data.totalResults;
+				console.log(total_count);
+				for (inti = 0; inti < total_count; inti = inti + 205) {
+					$http({
+						url: url_base,
+						method: "GET",
+						headers: {'Authorization': 'Bearer ' + accessToken, 'Accept': 'application/json'}
+					}).success(function (data, status, headers, config) {
+						console.log(data);
+						final.push(data.entry);
+					})
+				}
+				console.log(final);
+			});
+		}
 		/* Below are helper functions for the controllers to retrieve necessary data. */
 
 		this.getAccessToken = function () {
