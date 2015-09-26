@@ -39,7 +39,7 @@
 			$scope.userName = "";
 			$scope.password = "";
 			console.log("6");
-			$window.location.href = '/home.html';
+			$window.location.href = '#/dashboard';
 		});
 		$scope.$on('Successful logout', function() {
 			$scope.signInShow = true;
