@@ -26,19 +26,20 @@
 	/* The login controller retrieves a token via the token function.  The token function calls the login function which then
 	   broadcasts a message as to whether or not a user was successful in logging in or not.  If successful then the Patient controller 
 	   and the Observations controller will both retrieve data for the patient.													*/
-	dhp.controller('LoginController', function ($scope, DHPService) {
+	dhp.controller('LoginController', function ($scope, $window, DHPService) {
   
 		$scope.signInShow = true;
 		$scope.failedLoginShow = false;
 		
 		$scope.loginUser = function () {
-			console.log("Inside loginuser");
+			console.log("1");
 			DHPService.token($scope.userName, $scope.password);
 		};
 		$scope.$on('Successful patient', function() {
 			$scope.userName = "";
 			$scope.password = "";
-			$scope.signInShow = false;
+			console.log("6");
+			$window.location.href = '/home.html';
 		});
 		$scope.$on('Successful logout', function() {
 			$scope.signInShow = true;
@@ -55,7 +56,7 @@
 		$scope.patientShow = false;
 	
 		$scope.$on('Successful login', function() {
-			console.log("logged In baby");
+			console.log("4");
 			DHPService.patient();
 		});
 		$scope.logoutUser = function () {
@@ -338,4 +339,7 @@
 			  ];
 		});
 	});
-	
+
+	dhp.controller('dashboardController', ['$scope', function($scope){
+
+	}]);

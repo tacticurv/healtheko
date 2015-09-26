@@ -1,6 +1,7 @@
 /**
  * Created by tacti on 26-Sep-15.
  */
+
 var app = angular.module('StarterApp', ['ngMaterial']).config(function($mdThemingProvider) {
     $mdThemingProvider.theme('default')
         .primaryPalette('light-blue')
@@ -38,4 +39,8 @@ var c = $('#myChart');
 var ct = c.get(0).getContext('2d');
 var ctx = document.getElementById("myChart").getContext("2d");
 /*************************************************************************/
+
 myNewChart = new Chart(ct).Doughnut(data, options);
+
+
+

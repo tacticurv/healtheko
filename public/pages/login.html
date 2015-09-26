@@ -1,0 +1,24 @@
+<div>
+    <md-whiteframe class="md-whiteframe-z2" layout layout-align="center">
+        <md-content class="md-padding">
+            <h2>Login with Mail ID</h2>
+            <form name="loginForm">
+                <md-input-container layout="row">
+                    <div layout="column" layout-margin layout-padding>
+                        <img src="img/icons/lightblue/user.png">
+                    </div>
+                    <input type="text" id="username" name="username" placeholder="Username" ng-model="userName">
+                </md-input-container>
+                <md-input-container layout="row">
+                    <div layout="column" layout-margin layout-padding>
+                        <img src="img/icons/lightblue/lock.png">
+                    </div>
+                    <input type="password" id="password" name="password" placeholder="Password" ng-model="password">
+                </md-input-container>
+                <md-input-container>
+                    <md-button class="md-raised md-primary" ng-click="loginUser()">LogIn</md-button>
+                </md-input-container>
+            </form>
+        </md-content>
+    </md-whiteframe>
+</div>

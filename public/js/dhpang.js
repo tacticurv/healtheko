@@ -22,7 +22,15 @@
 * 	
 * This is the main angular application and the dependency on chart.js is declared.
 */	
-	var dhp = angular.module('dhp', ['chart.js', 'ngMaterial']).config(function($mdThemingProvider) {
+	var dhp = angular.module('dhp', ['ngRoute', 'chart.js', 'ngMaterial']).config(function($routeProvider) {
+	$routeProvider.when('/', {
+		templateUrl : 'pages/login.html',
+		controller  : 'LoginController'
+	}).when('/dashboard', {
+		templateUrl : 'pages/dashboard.html',
+		controller  : 'dashboardController'
+	});
+}).config(function($mdThemingProvider) {
 	$mdThemingProvider.theme('default')
 		.primaryPalette('light-blue')
 });

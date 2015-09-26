@@ -36,8 +36,8 @@
 		var observationsGlucose;
 		
 		/* The login function authenticates a user given a username and password and after a token has been retrieved. */
-		var login = function(userName,password,accessToken) { 
-			console.log("I am in");
+		var login = function(userName,password,accessToken) {
+			console.log("3");
 			$http({
 				url: BASE_URL_LOGIN,
 				method: "POST",
@@ -47,6 +47,7 @@
 					patient_id = data.user.id;
 					organization_id = data.user.org;
 					$rootScope.$broadcast("Successful login");
+					console.log("broadcasted");
 				}).error(function (data, status, headers, config) {
 					console.log(data);
 					$rootScope.$broadcast("Failed login");
@@ -67,7 +68,8 @@
 			};
 			
 		/* The patient function retrieves individual patient demographic data. */
-		this.patient = function() { 
+		this.patient = function() {
+			console.log("5");
 			$http({
 				url: BASE_URL_PATIENT + patient_id,
 				method: "GET",
@@ -174,7 +176,7 @@
 		/* This is the first function called to retrieve an application token.  Once a token is retrieved then it
 		   makes a call to authenticate the user via the login function.										*/			
 		this.token = function(username, password) {
-			console.log("getting started");
+			console.log("2");
 			var authenticateString = 'Basic ' + Base64.encode(CLIENT_ID + ':' + CLIENT_SECRET);
 			$http({
 				url: BASE_URL_GET_TOKEN,
@@ -182,7 +184,6 @@
 				headers: {'Authorization':authenticateString }
 			}).success(function (data, status, headers, config) {
 					accessToken = data.access_token;
-					console.log("got the token");
 					login(username,password,accessToken);
 				}).error(function (data, status, headers, config) {
 					console.log(data);
